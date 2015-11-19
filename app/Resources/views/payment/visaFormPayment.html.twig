@@ -5,15 +5,15 @@
   <h1> Pay with Visa card </h1>
   <form class="table">
     <div class="table-row">Card Number:
-      <input type="number" name="cardnumber"/>
+      <input type="text" pattern="[0-9]{16}" name="cardnumber" placeholder="Votre numéro de carte"/>
     <br/>
     </div>
     <div class="table-row">Name on the card:
-      <input type="text" name="firstlastname"/>
+      <input type="text" name="firstlastname" placeholder="Mr Nom Prénom"/>
     <br/>
     </div>
     <div class="table-row">Secret Code:
-      <input type="number" name="secretcode"/>
+      <input type="text" pattern="[0-9]{3}" name="secretcode" placeholder="Code au dos de la carte"/>
     <br/>
     </div>
     <input type="submit" value="Submit">
