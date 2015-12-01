@@ -1,4 +1,3 @@
 creditCardDebit
 ===============
-
-A Symfony project created on November 19, 2015, 9:11 am.
+As usual don't forget to run: php /usr/local/bin/composer update
