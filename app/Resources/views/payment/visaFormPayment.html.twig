@@ -2,6 +2,11 @@
 {% block title %}
 Visa payment
 {% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" type="text/css" href="{{ asset('css/payment.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/default_payment.css')}}" />
+{% endblock %}
 
 {% block body %}
   {% block visaForm %}
