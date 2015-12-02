@@ -20,6 +20,7 @@ class PaymentController extends Controller{
 
   /**
   * @Route("/payment/visa", name="paymentVisa")
+  * @Method("GET")
   */
   public function visaAction(){
     $html = $this -> renderView("/payment/visaFormPayment.html.twig");
@@ -27,7 +28,7 @@ class PaymentController extends Controller{
   }
 
   /**
-   * @Route("/payment/visaSuccess", name="paymentVisaSubmitted")
+   * @Route("/payment/visa", name="paymentVisaSubmitted")
    * @Method("POST")
    */
   public function onCardSubmission(){
