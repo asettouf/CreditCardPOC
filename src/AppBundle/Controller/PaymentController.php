@@ -3,12 +3,12 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 //use Symfony\Component\HttpFoundation\Request;
 
 class PaymentController extends Controller{
-
   /**
   * @Route("/payment", name="paymentHome")
   */
@@ -25,4 +25,14 @@ class PaymentController extends Controller{
     $html = $this -> renderView("/payment/visaFormPayment.html.twig");
     return new Response($html);
   }
+
+  /**
+   * @Route("/payment/visaSuccess", name="paymentVisaSubmitted")
+   * @Method("POST")
+   */
+  public function onCardSubmission(){
+    $html = $this -> renderView("/payment/visaSuccess.html.twig");
+    return new Response($html);
+  }
+
 }

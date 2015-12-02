@@ -11,7 +11,7 @@ Visa payment
 {% block body %}
   {% block visaForm %}
   <h1> Pay with Visa card </h1>
-  <form class="table">
+  <form class="table" action="{{ path("paymentVisaSubmitted")}}" method="post">
     <div class="table-row">Card Number:
       <input type="text" pattern="[0-9]{16}" name="cardnumber" placeholder="Votre numéro de carte"/>
     <br/>
