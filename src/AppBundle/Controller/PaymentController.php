@@ -32,7 +32,9 @@ class PaymentController extends Controller{
    * @Method("POST")
    */
   public function onCardSubmission(){
-    $html = $this -> renderView("/payment/visaFail.html.twig");
+    $amount = $this -> getRequest() -> get("amount");
+    $html = $this -> renderView("/payment/visaFail.html.twig",
+      array("amount" => $amount));
     return new Response($html);
   }
 
