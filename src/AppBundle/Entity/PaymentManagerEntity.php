@@ -1,5 +1,5 @@
 <?php
 
-class PaymentController{
+class PaymentManagerEntity extends PaymentManagerAbstract{
 
 }
