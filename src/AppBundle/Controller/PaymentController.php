@@ -7,8 +7,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\PaymentManagerEntity;
+
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use AppBundle\Entity\PaymentManagerEntity;
 
 class PaymentController extends Controller{
   protected $typeOfPayment = "visa";
@@ -36,14 +37,14 @@ class PaymentController extends Controller{
    */
   public function onCardSubmission(Request $request){
     $this -> amount = $request -> get("amount");
-    $paymentForm = buildFormForConfirmation();
+    $paymentForm = $this -> buildFormForConfirmation();
     $html = $this -> renderView("/payment/visaConfirm.html.twig",
       array("amount" => $this -> amount, "form" => $paymentForm -> createView()));
     return new Response($html);
   }
 
   protected function buildFormForConfirmation(){
-    $payment = new PaymentEntity();
+    $payment = new PaymentManagerEntity();
     $paymentForm = $this -> createFormBuilder($payment)
     ->add("pbx_site", TextType::class)
     ->add("pbx_rang", TextType::class)
@@ -56,7 +57,9 @@ class PaymentController extends Controller{
     ->add("pbx_effectue", TextType::class)
     ->add("pbx_annule", TextType::class)
     ->add("pbx_refuse", TextType::class)
-    ->add("pbx_dateTime", TextType::class);
+    ->add("pbx_dateTime", TextType::class)
+    ->add('save', SubmitType::class, array('label' => 'Confirm Payment'))
+    ->getForm();
     return $paymentForm;
   }
   /**
@@ -80,8 +83,7 @@ class PaymentController extends Controller{
   /**
   * @Route("/payment/refuse", name="paymentRefuse")
   */
-  public function refused
-  Submission(){
+  public function refusedSubmission(){
     $html = $this -> renderView("/payment/".$this->typeOfPayment."Refuse.html.twig",
       array("amount" => $this -> amount));
     return new Response($html);
