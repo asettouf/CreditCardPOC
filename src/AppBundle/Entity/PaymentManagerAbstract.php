@@ -1,52 +1,38 @@
 <?php
+namespace AppBundle\Entity;
 
 class PaymentManagerAbstract{
-  protected $configs = include("payment_constants.php")
-  / Ennonciation de variables
-  protected $pbx_site = $configs["site"];									//variable de test 1999888
-  protected $pbx_rang = $configs["rank"];									//variable de test 32
-  protected $pbx_identifiant = $configs["identifier"];				//variable de test 3
-  protected $pbx_cmd = 'votre n° de commande';								//variable de test cmd_test1
+  private $configs;
+  // Ennonciation de variables
+  protected $pbx_site;									//variable de test 1999888
+  protected $pbx_rang;									//variable de test 32
+  protected $pbx_identifiant;				//variable de test 3
+  protected $pbx_cmd;								//variable de test cmd_test1
   protected $pbx_porteur = 'email de l acheteur';							//variable de test test@test.fr
   protected $pbx_total = 'votre montant';									//variable de test 100
   // Suppression des points ou virgules dans le montant
-  protected $pbx_total = str_replace(",", "", $pbx_total);
-  protected $pbx_total = str_replace(".", "", $pbx_total);
+
 
   // Paramétrage des urls de redirection après paiement
-  protected $my_website =  $configs["server"];
-  protected $pbx_effectue = my_website.'page-de-confirmation';
-  protected $pbx_annule = my_website.'page-d-annulation';
-  protected $pbx_refuse = my_website.'page-de-refus';
+  protected $my_website;
+  protected $pbx_effectue;
+  protected $pbx_annule;
+  protected $pbx_refuse;
   // Paramétrage de l'url de retour back office site
-  protected $pbx_repondre_a = my_website.'page-de-back-office-site';
+  protected $pbx_repondre_a;
   // Paramétrage du retour back office site
-  protected $pbx_retour = 'Mt:M;Ref:R;Auto:A;Erreur:E';
+  protected $pbx_retour;
 
   // Connection à la base de données
   // mysql_connect...
   // On récupère la clé secrète HMAC (stockée dans une base de données par exemple) et que l’on renseigne dans la variable $keyTest;
   //$keyTest = '0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF';
-  protected $keyTest = $configs["hmac_key"];
-  protected $serveurs = array('tpeweb.paybox.com', //serveur primaire
-'tpeweb1.paybox.com'); //serveur secondaire
-  protected $dateTime = date("c");
-  protected $msg = "PBX_SITE=".$pbx_site.
-  "&PBX_RANG=".	$pbx_rang.
-  "&PBX_IDENTIFIANT=".$pbx_identifiant.
-  "&PBX_TOTAL=".$pbx_total.
-  "&PBX_DEVISE=978".
-  "&PBX_CMD=".$pbx_cmd.
-  "&PBX_PORTEUR=".$pbx_porteur.
-  "&PBX_REPONDRE_A=".$pbx_repondre_a.
-  "&PBX_RETOUR=".$pbx_retour.
-  "&PBX_EFFECTUE=".$pbx_effectue.
-  "&PBX_ANNULE=".$pbx_annule.
-  "&PBX_REFUSE=".$pbx_refuse.
-  "&PBX_HASH=SHA512".
-  "&PBX_TIME=".$dateTime;
+  protected $keyTest;
+  protected $serveurs; //serveur secondaire
+  protected $dateTime;
 
-  protected $binKey = pack("H*", $keyTest);
+
+  protected $binKey;
 
   // On calcule l’empreinte (à renseigner dans le paramètre PBX_HMAC) grâce à la fonction hash_hmac et //
   // la clé binaire
@@ -54,5 +40,32 @@ class PaymentManagerAbstract{
   // Pour afficher la liste des algorithmes disponibles sur votre environnement, décommentez la ligne //
   // suivante
   // print_r(hash_algos());
-  protected $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
+  protected $hmac;
+  function __construct(){
+    $configs = include("payment_constants.php");
+    $this -> $pbx_site = $this -> configs["site"];
+    $this -> $pbx_rang = $this -> configs["rank"];
+    $this -> $pbx_identifiant = $this -> configs["identifier"];
+    $this -> $pbx_cmd = 'cmd_test1';
+    $this -> $pbx_porteur = 'email de l acheteur';
+    $this -> $pbx_total = 'votre montant';
+    $this -> $pbx_total = str_replace(",", "", $pbx_total);
+    $this -> $pbx_total = str_replace(".", "", $pbx_total);
+
+    $this -> $my_website =  $this -> configs["server"];
+    $this -> $pbx_effectue = my_website.'confirm';
+    $this -> $pbx_annule = my_website.'cancel';
+    $this -> $pbx_refuse = my_website.'refuse';
+    $this -> $pbx_repondre_a = my_website.'paymentbackend';
+    $this -> $pbx_retour = 'Mt:M;Ref:R;Auto:A;Erreur:E';
+
+
+    $this -> $keyTest = $this -> configs["hmac_key"];
+    $this -> $serveurs = array('tpeweb.paybox.com', 'tpeweb1.paybox.com');
+    $this -> $dateTime = date("c");
+    $this -> $binKey = pack("H*", $keyTest);
+
+    $this -> $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
+  }
+
 }
