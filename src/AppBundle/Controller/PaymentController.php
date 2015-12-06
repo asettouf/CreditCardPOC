@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\PaymentManagerEntity;
 
 class PaymentController extends Controller{
+  protected $typeOfPayment = "visa";
+  protected $amount = 5;
   /**
   * @Route("/payment", name="paymentHome")
   */
@@ -32,9 +34,41 @@ class PaymentController extends Controller{
    * @Method("POST")
    */
   public function onCardSubmission(Request $request){
-    $amount = $request -> get("amount");
-    $html = $this -> renderView("/payment/visaFail.html.twig",
-      array("amount" => $amount));
+    $this -> amount = $request -> get("amount");
+    $html = $this -> renderView("/payment/visaConfirm.html.twig",
+      array("amount" => $this -> amount));
+    return new Response($html);
+  }
+
+  /**
+  * @Route("/payment/confirm", name="paymentConfirm")
+  */
+  public function confirmSubmission(){
+    $html = $this -> renderView("/payment/".$this->typeOfPayment."Confirm.html.twig");
+    return new Response($html);
+  }
+
+  /**
+  * @Route("/payment/success", name="paymentSuccess")
+  */
+  public function successfulSubmission(){
+    $html = $this -> renderView("/payment/".$this->typeOfPayment."Success.html.twig");
+    return new Response($html);
+  }
+
+  /**
+  * @Route("/payment/refuse", name="paymentRefuse")
+  */
+  public function refusedSubmission(){
+    $html = $this -> renderView("/payment/".$this->typeOfPayment."Refuse.html.twig");
+    return new Response($html);
+  }
+
+  /**
+  * @Route("/payment/cancel", name="paymentCancel")
+  */
+  public function cancelSubmission(){
+    $html = $this -> renderView("/payment/".$this->typeOfPayment."Cancel.html.twig");
     return new Response($html);
   }
 
