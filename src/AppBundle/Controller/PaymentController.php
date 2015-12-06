@@ -44,7 +44,8 @@ class PaymentController extends Controller{
   * @Route("/payment/confirm", name="paymentConfirm")
   */
   public function confirmSubmission(){
-    $html = $this -> renderView("/payment/".$this->typeOfPayment."Confirm.html.twig");
+    $html = $this -> renderView("/payment/".$this->typeOfPayment."Confirm.html.twig",
+      array("amount" => $this -> amount));
     return new Response($html);
   }
 
@@ -52,7 +53,8 @@ class PaymentController extends Controller{
   * @Route("/payment/success", name="paymentSuccess")
   */
   public function successfulSubmission(){
-    $html = $this -> renderView("/payment/".$this->typeOfPayment."Success.html.twig");
+    $html = $this -> renderView("/payment/".$this->typeOfPayment."Success.html.twig",
+      array("amount" => $this -> amount));
     return new Response($html);
   }
 
@@ -60,7 +62,8 @@ class PaymentController extends Controller{
   * @Route("/payment/refuse", name="paymentRefuse")
   */
   public function refusedSubmission(){
-    $html = $this -> renderView("/payment/".$this->typeOfPayment."Refuse.html.twig");
+    $html = $this -> renderView("/payment/".$this->typeOfPayment."Refuse.html.twig",
+      array("amount" => $this -> amount));
     return new Response($html);
   }
 
@@ -68,7 +71,8 @@ class PaymentController extends Controller{
   * @Route("/payment/cancel", name="paymentCancel")
   */
   public function cancelSubmission(){
-    $html = $this -> renderView("/payment/".$this->typeOfPayment."Cancel.html.twig");
+    $html = $this -> renderView("/payment/".$this->typeOfPayment."Cancel.html.twig",
+      array("amount" => $this -> amount));
     return new Response($html);
   }
 
