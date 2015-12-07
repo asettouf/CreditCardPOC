@@ -38,7 +38,7 @@ class PaymentController extends Controller{
    * @Method("POST")
    */
   public function onCardSubmission(Request $request){
-    $this -> amount = $request -> get("amount");
+    $this -> amount = $request -> get("pbx_total");
     $paymentForm = $this -> buildFormForConfirmation();
     $html = $this -> renderView("/payment/visaConfirm.html.twig",
       array("amount" => $this -> amount, "form" => $paymentForm -> createView()));
@@ -50,20 +50,25 @@ class PaymentController extends Controller{
     $logger = $this->get('logger');
     $logger -> info("Hello check var: ".$payment -> getPbxSite());
     $payment -> setPbxTotal($this -> amount);
-    $paymentForm = $this -> createFormBuilder($payment)
-    ->add("pbx_site")
-    ->add("pbx_rang")
-    ->add("pbx_identifiant")
-    ->add("pbx_total")
-    ->add("pbx_cmd")
-    ->add("pbx_porteur")
-    ->add("pbx_repondre_a")
-    ->add("pbx_retour")
-    ->add("pbx_effectue")
-    ->add("pbx_annule")
-    ->add("pbx_refuse")
-    ->add("pbx_dateTime")
-    ->add('save', "submit", array('label' => 'Confirm Payment'))
+    $paymentForm = $this -> get("form.factory") -> createNamedBuilder(null, 'form',$payment, array('label' => false))
+    ->setAction("https://preprod-tpeweb.e-transactions.fr/cgi/MYchoix_pagepaiement.cgi")
+    ->add("PBX_SITE")
+    ->add("PBX_RANG")
+    ->add("PBX_IDENTIFIANT")
+    ->add("PBX_TOTAL")
+    ->add("PBX_DEVISE")
+    ->add("PBX_CMD")
+    ->add("PBX_TYPECARTE")
+    ->add("PBX_PORTEUR")
+    ->add("PBX_REPONDRE_A")
+    ->add("PBX_RETOUR")
+    ->add("PBX_EFFECTUE")
+    ->add("PBX_ANNULE")
+    ->add("PBX_REFUSE")
+    ->add("PBX_HASH")
+    ->add("PBX_TIME")
+    ->add("PBX_HMAC")
+    ->add("save", "submit", array('label' => 'Confirm Payment'))
     ->getForm();
     return $paymentForm;
   }

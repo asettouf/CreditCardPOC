@@ -8,10 +8,12 @@ class PaymentManagerAbstract{
   protected $pbx_rang;									//variable de test 32
   protected $pbx_identifiant;				//variable de test 3
   protected $pbx_cmd;								//variable de test cmd_test1
-  protected $pbx_porteur = 'email de l acheteur';							//variable de test test@test.fr
-  protected $pbx_total = 'votre montant';									//variable de test 100
+  protected $pbx_porteur = 'test@test.fr';							//variable de test test@test.fr
+  protected $pbx_total = 'votre montant';
+  protected $pbx_devise = 978;
+  protected $pbx_hash = "SHA512";							//variable de test 100
   // Suppression des points ou virgules dans le montant
-
+  protected $pbx_card = "CB";
 
   // Paramétrage des urls de redirection après paiement
   protected $my_website;
@@ -40,14 +42,14 @@ class PaymentManagerAbstract{
   // Pour afficher la liste des algorithmes disponibles sur votre environnement, décommentez la ligne //
   // suivante
   // print_r(hash_algos());
-  protected $hmac;
+  protected $pbx_hmac;
   function __construct(){
     $this -> configs = include("payment_constants.php");
     $this -> pbx_site = $this -> configs["site"];
     $this -> pbx_rang = $this -> configs["rank"];
     $this -> pbx_identifiant = $this -> configs["identifier"];
     $this -> pbx_cmd = 'cmd_test1';
-    $this -> pbx_porteur = 'email de l acheteur';
+    $this -> pbx_porteur = 'adonis.settouf@gmail.com';
     $this -> pbx_total = 'votre montant';
     $this -> pbx_total = str_replace(",", "", $this -> pbx_total);
     $this -> pbx_total = str_replace(".", "", $this -> pbx_total);
@@ -62,8 +64,6 @@ class PaymentManagerAbstract{
 
     $this -> keyTest = $this -> configs["hmac_key"];
     $this -> serveurs = array('tpeweb.paybox.com', 'tpeweb1.paybox.com');
-    $this -> dateTime = date("c");
-    $this -> binKey = pack("H*", $this -> keyTest);
   }
 
 }

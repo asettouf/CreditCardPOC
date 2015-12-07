@@ -7,20 +7,68 @@ class PaymentManagerEntity extends PaymentManagerAbstract{
 
   function __construct(){
     parent::__construct();
-
-  //  $this -> hmac = strtoupper(hash_hmac('sha512', $msg, $this -> binKey));
+    $this -> dateTime = date("c");
+    $this -> computeHmac();
   }
 
 
-  public function sendTransaction($amount){
-
+  public function computeHmac(){
+    $this -> msg = "PBX_SITE=".$this -> pbx_site.
+    "&PBX_RANG=".	$this -> pbx_rang.
+    "&PBX_IDENTIFIANT=".$this -> pbx_identifiant.
+    "&PBX_TOTAL=".$this -> pbx_total.
+    "&PBX_DEVISE=".$this -> pbx_devise.
+    "&PBX_CMD=".$this -> pbx_cmd.
+    "&PBX_TYPECARTE=".$this -> pbx_card.
+    "&PBX_PORTEUR=".$this -> pbx_porteur.
+    "&PBX_REPONDRE_A=".$this -> pbx_repondre_a.
+    "&PBX_RETOUR=".$this -> pbx_retour.
+    "&PBX_EFFECTUE=".$this -> pbx_effectue.
+    "&PBX_ANNULE=".$this -> pbx_annule.
+    "&PBX_REFUSE=".$this -> pbx_refuse.
+    "&PBX_HASH=".$this -> pbx_hash.
+    "&PBX_TIME=".$this -> dateTime;
+    $this -> binKey = pack("H*", $this -> keyTest);
+    $this -> pbx_hmac = strtoupper(hash_hmac($this -> pbx_hash, $this -> msg, $this -> binKey));
   }
 
-  public function setPbxDateTime($dateTime){
+  public function setPbxTypeCarte($pbx_card){
+    $this -> pbx_card = $pbx_card;
+  }
+
+  public function getPbxTypeCarte(){
+    return $this -> pbx_card;
+  }
+
+  public function setPbxHmac($pbx_hmac){
+    $this -> pbx_hmac = $pbx_hmac;
+  }
+
+  public function getPbxHmac(){
+    return $this -> pbx_hmac;
+  }
+
+  public function setPbxHash($pbx_hash){
+    $this -> pbx_hash = $pbx_hash;
+  }
+
+  public function getPbxHash(){
+    return $this -> pbx_hash;
+  }
+
+  public function setPbxDevise($pbx_devise){
+    $this -> pbx_devise = $pbx_devise;
+  }
+
+  public function getPbxDevise(){
+    return $this -> pbx_devise;
+  }
+
+  public function setPbxTime($dateTime){
     $this -> dateTime = $dateTime;
   }
 
-  public function getPbxDateTime(){
+  public function getPbxTime(){
     return $this -> dateTime;
   }
 
