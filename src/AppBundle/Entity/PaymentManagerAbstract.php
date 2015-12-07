@@ -42,30 +42,28 @@ class PaymentManagerAbstract{
   // print_r(hash_algos());
   protected $hmac;
   function __construct(){
-    $configs = include("payment_constants.php");
-    $this -> $pbx_site = $this -> configs["site"];
-    $this -> $pbx_rang = $this -> configs["rank"];
-    $this -> $pbx_identifiant = $this -> configs["identifier"];
-    $this -> $pbx_cmd = 'cmd_test1';
-    $this -> $pbx_porteur = 'email de l acheteur';
-    $this -> $pbx_total = 'votre montant';
-    $this -> $pbx_total = str_replace(",", "", $pbx_total);
-    $this -> $pbx_total = str_replace(".", "", $pbx_total);
+    $this -> configs = include("payment_constants.php");
+    $this -> pbx_site = $this -> configs["site"];
+    $this -> pbx_rang = $this -> configs["rank"];
+    $this -> pbx_identifiant = $this -> configs["identifier"];
+    $this -> pbx_cmd = 'cmd_test1';
+    $this -> pbx_porteur = 'email de l acheteur';
+    $this -> pbx_total = 'votre montant';
+    $this -> pbx_total = str_replace(",", "", $this -> pbx_total);
+    $this -> pbx_total = str_replace(".", "", $this -> pbx_total);
 
-    $this -> $my_website =  $this -> configs["server"];
-    $this -> $pbx_effectue = my_website.'confirm';
-    $this -> $pbx_annule = my_website.'cancel';
-    $this -> $pbx_refuse = my_website.'refuse';
-    $this -> $pbx_repondre_a = my_website.'paymentbackend';
-    $this -> $pbx_retour = 'Mt:M;Ref:R;Auto:A;Erreur:E';
+    $this -> my_website =  $this -> configs["server"];
+    $this -> pbx_effectue = $this -> my_website.'confirm';
+    $this -> pbx_annule = $this -> my_website.'cancel';
+    $this -> pbx_refuse = $this -> my_website.'refuse';
+    $this -> pbx_repondre_a = $this -> my_website.'paymentbackend';
+    $this -> pbx_retour = 'Mt:M;Ref:R;Auto:A;Erreur:E';
 
 
-    $this -> $keyTest = $this -> configs["hmac_key"];
-    $this -> $serveurs = array('tpeweb.paybox.com', 'tpeweb1.paybox.com');
-    $this -> $dateTime = date("c");
-    $this -> $binKey = pack("H*", $keyTest);
-
-    $this -> $hmac = strtoupper(hash_hmac('sha512', $msg, $binKey));
+    $this -> keyTest = $this -> configs["hmac_key"];
+    $this -> serveurs = array('tpeweb.paybox.com', 'tpeweb1.paybox.com');
+    $this -> dateTime = date("c");
+    $this -> binKey = pack("H*", $this -> keyTest);
   }
 
 }

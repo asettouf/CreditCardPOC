@@ -3,25 +3,12 @@ namespace AppBundle\Entity;
 
 class PaymentManagerEntity extends PaymentManagerAbstract{
 
-  protected $msg;
+  public $msg;
 
   function __construct(){
     parent::__construct();
-    $this -> $msg = "PBX_SITE=".($this -> pbx_site).
-    "&PBX_RANG=".$this -> pbx_rang.
-    "&PBX_IDENTIFIANT=".$this -> pbx_identifiant.
-    "&PBX_TOTAL=".$this -> pbx_total.
-    "&PBX_DEVISE=978".
-    "&PBX_CMD=".$this -> pbx_cmd.
-    "&PBX_PORTEUR=".$this -> pbx_porteur.
-    "&PBX_REPONDRE_A=".$this -> pbx_repondre_a.
-    "&PBX_RETOUR=".$this -> pbx_retour.
-    "&PBX_EFFECTUE=".$this -> pbx_effectue.
-    "&PBX_ANNULE=".$this -> pbx_annule.
-    "&PBX_REFUSE=".$this -> pbx_refuse.
-    "&PBX_HASH=SHA512".
-    "&PBX_TIME=".$this -> dateTime;
 
+  //  $this -> hmac = strtoupper(hash_hmac('sha512', $msg, $this -> binKey));
   }
 
 
@@ -29,99 +16,99 @@ class PaymentManagerEntity extends PaymentManagerAbstract{
 
   }
 
-  public function set_dateTime($dateTime){
+  public function setPbxDateTime($dateTime){
     $this -> dateTime = $dateTime;
   }
 
-  public function get_dateTime(){
+  public function getPbxDateTime(){
     return $this -> dateTime;
   }
 
-  public function set_pbx_refuse($pbx_refuse){
+  public function setPbxRefuse($pbx_refuse){
     $this -> pbx_refuse = $pbx_refuse;
   }
 
-  public function get_pbx_refuse(){
+  public function getPbxRefuse(){
     return $this -> pbx_refuse;
   }
 
-  public function set_pbx_annule($pbx_annule){
+  public function setPbxAnnule($pbx_annule){
     $this -> pbx_annule = $pbx_annule;
   }
 
-  public function get_pbx_annule(){
+  public function getPbxAnnule(){
     return $this -> pbx_annule;
   }
 
-  public function set_pbx_effectue($pbx_effectue){
+  public function setPbxEffectue($pbx_effectue){
     $this -> pbx_effectue = $pbx_effectue;
   }
 
-  public function get_pbx_effectue(){
+  public function getPbxEffectue(){
     return $this -> pbx_effectue;
   }
 
-  public function set_pbx_retour($pbx_retour){
+  public function setPbxRetour($pbx_retour){
     $this -> pbx_retour = $pbx_retour;
   }
 
-  public function get_pbx_retour(){
+  public function getPbxRetour(){
     return $this -> pbx_retour;
   }
 
-  public function set_pbx_repondre_a($pbx_repondre_a){
+  public function setPbxRepondreA($pbx_repondre_a){
     $this -> pbx_repondre_a = $pbx_repondre_a;
   }
 
-  public function get_pbx_repondre_a(){
+  public function getPbxRepondreA(){
     return $this -> pbx_repondre_a;
   }
 
-  public function set_pbx_porteur($pbx_porteur){
+  public function setPbxPorteur($pbx_porteur){
     $this -> pbx_porteur = $pbx_porteur;
   }
 
-  public function get_pbx_porteur(){
+  public function getPbxPorteur(){
     return $this -> pbx_porteur;
   }
 
-  public function set_pbx_cmd($pbx_cmd){
+  public function setPbxCmd($pbx_cmd){
     $this -> pbx_cmd = $pbx_cmd;
   }
 
-  public function get_pbx_cmd(){
+  public function getPbxCmd(){
     return $this -> pbx_cmd;
   }
 
-  public function set_pbx_total($pbx_total){
+  public function setPbxTotal($pbx_total){
     $this -> pbx_total = $pbx_total;
   }
 
-  public function get_pbx_total(){
+  public function getPbxTotal(){
     return $this -> pbx_total;
   }
 
-  public function set_pbx_identifiant($pbx_identifiant){
+  public function setPbxIdentifiant($pbx_identifiant){
     $this -> pbx_identifiant = $pbx_identifiant;
   }
 
-  public function get_pbx_identifiant(){
+  public function getPbxIdentifiant(){
     return $this -> pbx_identifiant;
   }
 
-  public function set_pbx_rang($pbx_rang){
+  public function setPbxRang($pbx_rang){
     $this -> pbx_rang = $pbx_rang;
   }
 
-  public function get_pbx_rang(){
+  public function getPbxRang(){
     return $this -> pbx_rang;
   }
 
-  public function set_pbx_site($pbx_site){
+  public function setPbxSite($pbx_site){
     $this -> pbx_site = $pbx_site;
   }
 
-  public function get_pbx_site(){
+  public function getPbxSite(){
     return $this -> pbx_site;
   }
 }

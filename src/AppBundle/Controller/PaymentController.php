@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 use AppBundle\Entity\PaymentManagerEntity;
 
 class PaymentController extends Controller{
@@ -45,20 +47,23 @@ class PaymentController extends Controller{
 
   protected function buildFormForConfirmation(){
     $payment = new PaymentManagerEntity();
+    $logger = $this->get('logger');
+    $logger -> info("Hello check var: ".$payment -> getPbxSite());
+    $payment -> setPbxTotal($this -> amount);
     $paymentForm = $this -> createFormBuilder($payment)
-    ->add("pbx_site", TextType::class)
-    ->add("pbx_rang", TextType::class)
-    ->add("pbx_identifiant", TextType::class)
-    ->add("pbx_total", TextType::class)
-    ->add("pbx_cmd", TextType::class)
-    ->add("pbx_porteur", TextType::class)
-    ->add("pbx_repondre_a", TextType::class)
-    ->add("pbx_retour", TextType::class)
-    ->add("pbx_effectue", TextType::class)
-    ->add("pbx_annule", TextType::class)
-    ->add("pbx_refuse", TextType::class)
-    ->add("pbx_dateTime", TextType::class)
-    ->add('save', SubmitType::class, array('label' => 'Confirm Payment'))
+    ->add("pbx_site")
+    ->add("pbx_rang")
+    ->add("pbx_identifiant")
+    ->add("pbx_total")
+    ->add("pbx_cmd")
+    ->add("pbx_porteur")
+    ->add("pbx_repondre_a")
+    ->add("pbx_retour")
+    ->add("pbx_effectue")
+    ->add("pbx_annule")
+    ->add("pbx_refuse")
+    ->add("pbx_dateTime")
+    ->add('save', "submit", array('label' => 'Confirm Payment'))
     ->getForm();
     return $paymentForm;
   }
