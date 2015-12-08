@@ -19,7 +19,7 @@ class PaymentManagerEntity extends PaymentManagerAbstract{
     "&PBX_TOTAL=".$this -> pbx_total.
     "&PBX_DEVISE=".$this -> pbx_devise.
     "&PBX_CMD=".$this -> pbx_cmd.
-    "&PBX_TYPECARTE=".$this -> pbx_card.
+    //"&PBX_TYPEPAIEMENT=".$this -> pbx_card.
     "&PBX_PORTEUR=".$this -> pbx_porteur.
     "&PBX_REPONDRE_A=".$this -> pbx_repondre_a.
     "&PBX_RETOUR=".$this -> pbx_retour.
@@ -32,11 +32,11 @@ class PaymentManagerEntity extends PaymentManagerAbstract{
     $this -> pbx_hmac = strtoupper(hash_hmac($this -> pbx_hash, $this -> msg, $this -> binKey));
   }
 
-  public function setPbxTypeCarte($pbx_card){
+  public function setPbxTypePaiement($pbx_card){
     $this -> pbx_card = $pbx_card;
   }
 
-  public function getPbxTypeCarte(){
+  public function getPbxTypePaiement(){
     return $this -> pbx_card;
   }
 

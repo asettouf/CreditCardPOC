@@ -36,14 +36,16 @@ class PaymentController extends Controller{
   /**
    * @Route("/payment/visa", name="paymentVisaSubmitted")
    * @Method("POST")
+   * route for confirming order
    */
   public function onCardSubmission(Request $request){
-    $this -> amount = $request -> get("pbx_total");
-    $paymentForm = $this -> buildFormForConfirmation();
+    $this -> amount = $request -> get("pbx_total") * 100;
+    $paymentForm   = $this -> buildFormForConfirmation();
     $html = $this -> renderView("/payment/visaConfirm.html.twig",
       array("amount" => $this -> amount, "form" => $paymentForm -> createView()));
     return new Response($html);
   }
+
 
   protected function buildFormForConfirmation(){
     $payment = new PaymentManagerEntity();
@@ -58,7 +60,7 @@ class PaymentController extends Controller{
     ->add("PBX_TOTAL")
     ->add("PBX_DEVISE")
     ->add("PBX_CMD")
-    ->add("PBX_TYPECARTE")
+    //->add("PBX_TYPEPAIEMENT")
     ->add("PBX_PORTEUR")
     ->add("PBX_REPONDRE_A")
     ->add("PBX_RETOUR")
